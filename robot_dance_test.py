@@ -1,5 +1,6 @@
 import Adafruit_PCA9685
 import time
+from numpy import interp
 PCA9685_pwm = Adafruit_PCA9685.PCA9685()
 PCA9685_pwm.set_pwm_freq(60)
 
