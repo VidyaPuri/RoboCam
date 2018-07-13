@@ -4,7 +4,7 @@ PCA9685_pwm = Adafruit_PCA9685.PCA9685()
 
 PCA9685_pwm.set_pwm_freq(60)
 
-servo_min = 125
+servo_min = 135
 servo_max = 540
 pos4  = 300
 
