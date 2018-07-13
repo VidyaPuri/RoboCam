@@ -39,7 +39,7 @@ def pos_fun(servo):
         except ValueError:
             print("invalid input. Value must be integer")
     print("Servo number",servo,"moves to position",pos)
-    move_servo()
+    move_servo(servo,pos)
 
 def move_servo(servo,pos):
         print("Servo numb:",servo,"moves for:",pos)
