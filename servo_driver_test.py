@@ -10,9 +10,9 @@ pos4  = 300
 
 def set_servo4(a,b):
     print("Servo1: ",a)
-    PCA9685_pwm.set_pwm(4,0,a)
+    PCA9685_pwm.set_pwm(3,0,a)
     time.sleep(2)
-    PCA9685_pwm.set_pwm(4,0,b)
+    PCA9685_pwm.set_pwm(3,0,b)
     print("Servo1: ",b)
 
 
