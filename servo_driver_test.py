@@ -8,17 +8,15 @@ servo_min = 125
 servo_max = 540
 pos4  = 300
 
-def set_servo4(a):
+def set_servo4(a,b):
     print("Servo1: ",a)
     PCA9685_pwm.set_pwm(4,0,a)
     return "Servo4:",a
-
-
-while True:
-    pos4=servo_max
-    set_servo4(pos4)
-    print("max")
-    time.sleep(100)
-    pos4=servo_min
-    set_servo4(pos4)
+    time.sleep(1)
+    PCA9685_pwm.set_pwm(4,0,b)
     print("min")
+
+
+for x in range(0,100)
+    set_servo4(servo_max,servo_min)
+print("done")
