@@ -48,7 +48,7 @@ def map(servo,pos):
     raw_pos = interp(pos,[0,180],[servo_min[servo],servo_max[servo]])
     print("servo_min:",servo_min[servo],"servo_max:",servo_max[servo],"deg_input",pos)
     print("raw value for servos",round(raw_pos,0))
-    move_servo()
+    move_servo(servo,pos)
 
 def move_servo(servo,pos):
         print("Servo numb:",servo,"moves for:",pos)
