@@ -17,6 +17,6 @@ def set_servo4(a,b):
     print("min")
 
 
-for x in range(0,100):_
+for x in range(0,100):
     set_servo4(servo_max,servo_min)
 print("done")
