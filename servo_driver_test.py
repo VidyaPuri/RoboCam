@@ -18,4 +18,5 @@ def set_servo4(a,b):
 
 for x in range(0,100):
     set_servo4(servo_max,servo_min)
+    time.sleep(2)
 print("done")
