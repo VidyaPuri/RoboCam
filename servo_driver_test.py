@@ -13,7 +13,7 @@ def main():
 
 def set_servo4(a):
     print("Servo1: ",a)
-    PCA.set_pwm(4,0,a)
+    PCA9685_pwm.set_pwm(4,0,a)
     return "Servo4:",a
 
 if __name__ == '__main__':
