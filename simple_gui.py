@@ -18,15 +18,18 @@ font = font.Font(weight = "bold",size = 16)
 
 def sel0():
     val=str(var0.get())
+
     selection = "Pos0 = " + val
     label0.config(text = selection)
-    move_servo(0,val)
+    val=int(float(val))
+    move_servo(1,val) #pise da je servo 0 je pa servo 1
 
 def sel1():
     val=str(var1.get())
     selection = "Pos1 = " + val
     label1.config(text = selection)
-    move_servo(1,val)
+    val=int(float(val))
+    move_servo(2,val)   #pise da je servo 1 je pa servo 2
 
 def move_servo(servo,pos):
         print("Servo",servo,"moves to:",pos)
