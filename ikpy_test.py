@@ -4,7 +4,7 @@ from ikpy import plot_utils
 import matplotlib
 import matplotlib.pyplot as plt
 
-my_chain = ikpy.chain.Chain.from_urdf_file("/home/vidya/ikpy/resources/poppy_ergo.URDF")
+my_chain = ikpy.chain.Chain.from_urdf_file("/home/vidya/catkin_ws/src/urdf6dof/urdf/6dof.urdf")
 
 target_vector = [0.1,-0.2,0.1]
 target_frame = np.eye(4)
