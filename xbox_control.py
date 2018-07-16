@@ -10,7 +10,7 @@ PCA9685_pwm.set_pwm_freq(60)
 servoMin = [130,170,165,135,340,0]
 servoMax = [570,550,480,540,800,0]
 
-contMin =[-100,-100,-100,-100,0,0]
+contMin =[-100,-100,0,-100,-100,0]
 contMax =[100,100,100,100,100,100]
 
 startPos =[350,360,325,340,500,0]
@@ -33,14 +33,15 @@ servoId =[0,1,4,3,2,5,6,7,8,9,10,11,12,13,14,15,16,17]
 step=0.1
 
 font = font.Font(weight = "bold",size = 16)
-def init(ifGrad):
+def init():
+    print("Initialisation, robot goes to mid position on all servos")
     for i in range(0,5):
         moveServo(i,startPos[i])
         print("Servo",i,"is at pos",startPos[i])
-    print("ifGrad",ifGrad)
+    #print("ifGrad",ifGrad)
 
 
-def mapFromTo(x,a,b,c,d):
+def mapFromTo(x,a,b,c,d): #maps range from a - b = input range c - d = output range
     y=(x-a)/(b-a)*(d-c)+c
     return y
 
@@ -50,11 +51,10 @@ def myCallBack(controlId,Value):
     if controlId == 8:
         if Value == 1:
             ifGrad = not ifGrad
-            print("ifGrad",ifGrad)
-    print("Control id:",controlId,"Value:",Value)
+            init()
+            #print("ifGrad",ifGrad)
     if controlId<=5:
-        servoPos = mapFromTo(Value,contMin[1],contMax[1],servoMin[1],servoMax[1])
-        servoPos = int(servoPos)
+        #print("Control id:",controlId,"Value:",Value)
         #move_servo(controlId,servoPos)
         move(controlId,Value,ifGrad)
 
@@ -62,7 +62,9 @@ def move(controlId,Value,ifGrad):
     if ifGrad == True:
         moveGrad(controlId,Value)
     elif ifGrad == False:
-        moveServo(controlId,Value)
+        servoPos = mapFromTo(Value,contMin[controlId],contMax[controlId],servoMin[controlId],servoMax[controlId])
+        servoPos = int(servoPos)
+        moveServo(controlId,servoPos)
 
 def moveServo(servo,pos):
         print("Servo",servo,"moves to:",pos)
@@ -70,23 +72,26 @@ def moveServo(servo,pos):
         #time.sleep(1)
 def moveGrad(servo,pos):
     if servo == 2:
-        currentPos[servo] = currentPos[servo] + (pos-50)*2*step
-        if currentPos[servo]>=servoMax[servo]:
-            currentPos[servo] = servoMax[servo]
-        elif currentPos[servo]<=servoMin[servo]:
-            currentPos[servo]=servoMin[servo]
-        print("Servo",servo,"moves to:",currentPos[servo])
-        PCA9685_pwm.set_pwm(servo,0,currentPos[servo])
+        servoPos2 = mapFromTo(pos,contMin[servo],contMax[servo],-100,100)
+        currentPos[2] = currentPos[2] + servoPos2*step
+        if currentPos[2]>=servoMax[2]:
+            currentPos[2] = servoMax[2]
+        elif currentPos[2]<=servoMin[2]:
+            currentPos[2]=servoMin[2]
+        currentPos[2] = int(currentPos[2])
+        #print("Servo",servo,"moves to:",currentPos[2])
+        #PCA9685_pwm.set_pwm(servo,0,currentPos[servo])
     else:
         currentPos[servo] = currentPos[servo]+ pos*step
         if currentPos[servo]>=servoMax[servo]:
             currentPos[servo] = servoMax[servo]
         elif currentPos[servo]<=servoMin[servo]:
             currentPos[servo]=servoMin[servo]
-        print("Servo",servo,"moves to:",currentPos[servo])
-        PCA9685_pwm.set_pwm(servo,0,currentPos[servo])
-
-init(ifGrad)
+        currentPos[servo] = int(currentPos[servo])
+        #print("Servo",servo,"moves to:",currentPos[servo])
+    PCA9685_pwm.set_pwm(servo,0,currentPos[servo])
+    print("Servo",servo,"moves to:",currentPos[servo])
+init()
 
 xboxCont = XboxController.XboxController(
         controllerCallBack = myCallBack,
